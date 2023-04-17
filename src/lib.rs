@@ -2638,6 +2638,19 @@ extern "C" {
     pub fn isal_zero_detect(mem: *mut ::std::os::raw::c_void, len: usize) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    /// Generate XOR parity vector from N sources, runs appropriate version.
+    /// Returns 0 on success, other on failure.
+    ///
+    /// This function determines what instruction sets are enabled and
+    /// selects the appropriate version at runtime.
+    ///
+    /// # Arguments
+    ///
+    /// * `vects` - Number of source+dest vectors in array. Must be > 2.
+    /// * `len`   - Length of each vector in bytes.
+    /// * `array` - Array of pointers to source and dest. For XOR the dest is
+    ///             the last pointer. ie array[vects-1]. Src and dest
+    ///             pointers must be aligned to 32B.
     pub fn xor_gen(
         vects: ::std::os::raw::c_int,
         len: ::std::os::raw::c_int,
@@ -2645,6 +2658,18 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
+    /// Checks that array has XOR parity sum of 0 across all vectors, runs appropriate version.
+    /// Returns 0 on success, other on failure.
+    ///
+    /// This function determines what instruction sets are enabled and
+    /// selects the appropriate version at runtime.
+    ///
+    /// # Arguments
+    ///
+    /// * `vects` - Number of vectors in array. Must be > 1.
+    /// * `len`   - Length of each vector in bytes.
+    /// * `array` - Array of pointers to vectors. Src and dest pointers
+    ///             must be aligned to 16B.
     pub fn xor_check(
         vects: ::std::os::raw::c_int,
         len: ::std::os::raw::c_int,
