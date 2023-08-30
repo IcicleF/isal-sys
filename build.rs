@@ -42,10 +42,7 @@ fn main() {
     {
         Ok(lib_isal) => lib_isal,
         Err(error) => match error {
-            Error::Failure { output, command } => {
-                println!("{}", Error::Failure { output, command });
-                println!("Building from source...");
-
+            Error::Failure { .. } | Error::ProbeFailure { .. } => {
                 // Submodule directory containing upstream source files (readonly)
                 let submodule_dir =
                     canonicalize("./isa-l").expect("isa-l submodule directory not found");
